@@ -10,7 +10,7 @@ Just a simple powershell script to change MAPI provider.
 
 Or just download ps1 file, right click on it and select 'Run with PowerShell'
 
-## Is SimpleMAPI is configured properly on my system?
+## Is SimpleMAPI configured properly on my system?
 
 Open Windows Explorer, find some file you will send via default email client, right click on file, Show More Options (if Win11), Send to, Mail recipient. It will open default MAPI client if everything is fine.
 
