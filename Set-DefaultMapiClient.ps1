@@ -12,10 +12,14 @@
 # src: https://stackoverflow.com/a/43912590/1155121
 $RegKey = "Registry::HKEY_CURRENT_USER\SOFTWARE\Clients\Mail"
 $RegValue = "(Default)"
-$mapi_current = (Get-ItemProperty -Path $RegKey -Name $RegValue).$RegValue
+$mapi_current = (Get-ItemProperty -Path $RegKey -Name $RegValue -ErrorAction SilentlyContinue).$RegValue
 
 # if undefined for current user, try for local machine
-if ($mapi_current -eq "") {
+if ([string]::IsNullOrEmpty($mapi_current)) {
+    # create registry path for current user since it doesn't exist
+    New-Item -Path $RegKey -ErrorAction Continue
+
+    # see what is set for local machine (but seems that this setting doesn't work in win11 - you NEED to have MAPI client set for current user)
     $RegKey = "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Clients\Mail"
     $mapi_current = (Get-ItemProperty -Path $RegKey -Name $RegValue).$RegValue
 }
@@ -73,5 +77,10 @@ if ($result -eq [System.Windows.Forms.DialogResult]::OK)
 {
     #$mapi_outlook = "Microsoft Outlook"
     $mapi_current = $listBox.SelectedItem
+    
+    # set for current user
     Set-ItemProperty -Path Registry::\HKCU\SOFTWARE\Clients\Mail -Name "(Default)" -Value $mapi_current
+
+    # set also for local machine (will work only if run as admin)
+    Set-ItemProperty -Path Registry::\HKEY_LOCAL_MACHINE\SOFTWARE\Clients\Mail -Name "(Default)" -Value $mapi_current -ErrorAction Continue
 }
