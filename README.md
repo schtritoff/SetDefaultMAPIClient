@@ -14,11 +14,7 @@ Or just download ps1 file, right click on it and select 'Run with PowerShell'
 
 Open Windows Explorer, find some file you will send via default email client, right click on file, Show More Options (if Win11), Send to, Mail recipient. It will open default MAPI client if everything is fine.
 
-<<<<<<< HEAD
 Or try running included powershell script [Send-EmailViaSimpleMapi.ps1](examples/Send-EmailViaSimpleMapi.ps1)
-=======
-Or try running included powershell script [Send-EmailViaSimpleMapi.ps1](examples\Send-EmailViaSimpleMapi.ps1)
->>>>>>> 71407331b5ebb6ada94282892cdb86c48ca21f06
 
 ## Troubleshooting
 If above test fails try some of this resources, it might help:
